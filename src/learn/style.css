@@ -1,0 +1,63 @@
+.Learn {
+    background: #EEE;
+    overflow: hidden;
+  }
+  
+  .Learn .listWarp .list {
+    position: relative;
+    margin:0 8rem;
+    padding-left: 320px;
+    background-color: rgb(249, 249, 249);
+    background-image: url(./img.jpg);
+    background-position: left top;
+    background-size: 320px 160px;
+    background-repeat: no-repeat;
+    margin-bottom: 1.5rem;
+  }
+  
+  .list .content {
+    width: 500px;
+    padding: 1rem 0 0 2rem;
+  }
+  
+  .list .Btn {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+  }
+  
+  .Video .left {
+    background: #fff;
+    float: left;
+    width: calc(70% - 2rem);
+    padding: 1rem 1rem 3.6rem;
+    margin: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .Video .left .video {
+    margin-bottom:2rem;
+  }
+  .Video .left .detials {
+    padding: 0 3rem;
+  }
+  
+  .Video .right {
+    background: #fff;
+    float: left;
+    width:calc(30% - 2rem);
+    padding: 1rem 1rem 3.6rem;
+    margin: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .Video .right button{
+    width: 100%;
+    text-align: left;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  
+  

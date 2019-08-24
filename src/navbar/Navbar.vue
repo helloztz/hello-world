@@ -1,0 +1,147 @@
+<template>
+<div>
+    <div class="nav">
+        <div class="content">
+        <el-row>
+            <el-col :span="5">
+                <div class="logo">
+                    <img :src=Logoimgurl :alt=LogoimgAlt>
+                    <span style="font-size:15px">{{LogoimgAlt}}</span>
+                </div>
+            </el-col>
+            <el-col :span="14">
+                <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal" @select="handleSelect" >
+                <el-menu-item ><router-link to="/">首页</router-link></el-menu-item>
+                <el-menu-item ><router-link to="/List">学习</router-link></el-menu-item>
+                <el-menu-item ><a >练习</a></el-menu-item>
+                <el-menu-item ><a >考试</a></el-menu-item>
+                </el-menu>
+            </el-col>
+            <el-col :span="5">
+                <div class="message" v-if="flag">
+                    <el-button type="success" @click="submitForm">登录</el-button>
+                </div>
+                <div class="message" v-else>
+                    <img :src=$store.getters.user_logo> 
+                    <span style="font-size:15px;margin-left:5px;">{{$store.getters.userName}}</span>
+                </div>
+            </el-col>
+        </el-row>
+    </div>
+    </div>
+</div>
+</template>
+
+
+<script>
+export default {
+  name: "Navbar",
+  data(){
+      return{
+           Logoimgurl:'',
+           LogoimgAlt:'',
+           flag:false
+      }
+  },
+  created(){
+      this.geturl();
+  },
+  methods:{
+      geturl(){
+        let api = this.HOST + '/companyInfo?appId=wx129eaf6876332fba'
+        this.$axios.post(api).then((response) => {
+            this.Logoimgurl = response.data.data.companyInfo.companyLogo
+            this.LogoimgAlt = response.data.data.companyInfo.companyName
+        });
+        if(!this.$store.getters.userName){
+            this.flag =true
+        }else{
+            this.flag =false
+        }
+      },
+      submitForm(){
+          this.$router.push({path:'/Login'});
+      }
+  }
+};
+</script>
+
+<style scoped>
+.nav{
+    width: 100%;
+    height: 80px;
+    background: #fff;
+}
+.content{
+    width: 1100px;
+    margin: 0 auto;
+}
+.logo{
+    height: 80px;
+    text-align: center;
+}
+.logo img{
+    margin: 15px 15px;
+    vertical-align: center;
+    height: 50px;
+}
+.el-row {
+ margin-bottom: 20px;
+}
+.el-row:last-child {
+    margin-bottom: 0;
+}
+.el-col {
+  border-radius: 4px;
+}
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.bg-purple {
+  background: #d3dce6;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
+.el-button--success{
+    background-color: #409EFF;
+    border-color: #409EFF;
+}
+.el-menu.el-menu--horizontal{
+    border: 0;
+}
+.el-menu--horizontal>.el-menu-item{
+    height: 80px;
+    line-height: 80px;
+}
+.el-menu--horizontal>.el-menu-item:hover{
+    border-bottom: 1px solid #1890ff;
+}
+.el-menu--horizontal>.el-menu-item a{
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.65);
+    font-weight: bold;
+    text-decoration: none
+}
+.el-menu--horizontal>.el-menu-item a:hover{
+    color:#1890ff;
+}
+.message{
+    height: 80px;
+    line-height: 80px;
+}
+.message img{
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+</style>
