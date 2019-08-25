@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import './router/permissions.js'
 import store from './store'
 import Element from 'element-ui'
 import './home/assets/css/bootstrap.css';
@@ -15,7 +16,6 @@ import VideoPlayer from 'vue-video-player'
 import axios from 'axios'
 Vue.prototype.$axios = axios
 Vue.prototype.HOST='/api'
-
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
 

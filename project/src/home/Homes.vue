@@ -350,7 +350,7 @@
         </div><!-- /.container -->
     </div><!-- /.flat-row -->
     </div>
-    
+
 </template>
 
 <script>
@@ -378,7 +378,7 @@ export default {
         }
     },
     created(){
-      this.getUrl();
+      // this.getUrl();
     },
     methods:{
         getUrl(){

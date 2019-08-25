@@ -22,8 +22,8 @@
                     <el-button type="success" @click="submitForm">登录</el-button>
                 </div>
                 <div class="message" v-else>
-                    <img :src=$store.getters.user_logo> 
-                    <span style="font-size:15px;margin-left:5px;">{{$store.getters.userName}}</span>
+                    <img :src='userSrc'>
+                    <span style="font-size:15px;margin-left:5px;">{{userName}}</span>
                 </div>
             </el-col>
         </el-row>
@@ -31,37 +31,51 @@
     </div>
 </div>
 </template>
-
-
 <script>
+import {getUserInfor} from '@/utils/index.js'
 export default {
   name: "Navbar",
   data(){
       return{
            Logoimgurl:'',
            LogoimgAlt:'',
-           flag:false
+           flag: false,
+           userSrc: '',
+           userName: ''
       }
   },
   created(){
       this.geturl();
   },
-  methods:{
-      geturl(){
-        let api = this.HOST + '/companyInfo?appId=wx129eaf6876332fba'
-        this.$axios.post(api).then((response) => {
-            this.Logoimgurl = response.data.data.companyInfo.companyLogo
-            this.LogoimgAlt = response.data.data.companyInfo.companyName
-        });
-        if(!this.$store.getters.userName){
-            this.flag =true
-        }else{
-            this.flag =false
-        }
-      },
-      submitForm(){
-          this.$router.push({path:'/Login'});
+  methods: {
+    geturl(){
+      let api = this.HOST + '/companyInfo?appId=wx129eaf6876332fba'
+      this.$axios.post(api).then((response) => {
+          this.Logoimgurl = response.data.data.companyInfo.companyLogo
+          this.LogoimgAlt = response.data.data.companyInfo.companyName
+      });
+      if(!this.$store.getters.userName){
+          this.flag =true
+      }else{
+          this.flag =false
       }
+    },
+    submitForm(){
+        this.$router.push({path:'/Login'});
+    },
+    setLoginStatus () {
+      let status = getUserInfor()
+      if (status) {
+        this.flag = false
+        this.userSrc = status.headImgUrl
+        this.userName = status.realName
+      } else {
+        this.flag = true
+      }
+    }
+  },
+  mounted() {
+    this.setLoginStatus()
   }
 };
 </script>

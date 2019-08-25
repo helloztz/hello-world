@@ -5,20 +5,17 @@
             <div slot="header" class="clearfix">
               <span>手机登陆</span>
             </div>
-            <el-form :model="Register" ref="RegisterForm" label-width="0" class="RegisterForm">
-                <el-form-item prop="phone">
-                    <el-input v-model="Register.phone" placeholder="请输入手机号"></el-input>
+            <el-form :model="ruleForm" label-width="10" class="RegisterForm" :rules="rules" ref="ruleForm">
+                <el-form-item prop="phone"  label=" ">
+                    <el-input v-model="ruleForm.phone" placeholder="请输入手机号"></el-input>
                 </el-form-item>
-                <el-form-item prop="验证码" class="code">
-                    <el-input v-model="Register.sendcode" placeholder="请输入验证码" style="width:55%;display:flex"></el-input>
-                    <el-button type="button" @click="sendcode" :disabled="disabled" v-if="disabled==false">发送验证码
-                    </el-button>
-                    <el-button type="button" @click="sendcode" :disabled="disabled" v-if="disabled==true">{{btntxt}}
+                <el-form-item prop="code" class="code"  label=" ">
+                    <el-input v-model="ruleForm.code" placeholder="请输入验证码" style="width:55%;display:flex"></el-input>
+                    <el-button type="button" @click="sendCode" :disabled="disabled">{{btntxt}}
                     </el-button>
                 </el-form-item>
-
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm" class="btn">登录</el-button>
+                    <el-button type="primary" @click="submitForm('ruleForm')" class="btn">登录</el-button>
                 </el-form-item>
             </el-form>
           </el-card>
@@ -26,107 +23,106 @@
       </div>
 </template>
 <script>
-// import store from "../store";
+import {login, getVerificationCode} from '@/api/login/index.js'
+import {countdown, setUserInfor, getUserInfor} from '@/utils/index.js'
+let startMinuts = countdown()
 export default {
-    name:'Login', 
-    data() {
-            return {
-                Register: {
-                    phone: '',
-                    sendcode: '',
-                },
+  name:'Login',
+  data () {
+    let validatePhone = (rule, value ,callback) => {
+      let reg = /^1[3456789]\d{9}$/
+      if (value === '') {
+        return callback(new Error('手机号码不能为空'));
+      } else if (!reg.test(value)) {
+        return callback(new Error('手机号码有误'));
+      } else {
+        callback()
+      }
+    }
+    let validateCode = (rule, value, callback) => {
+      if (value === '') {
+        return callback(new Error('手机验证码不能为空'));
+      } else if (value.length !== 5) {
+        return callback(new Error('手机验证码必须为六位'));
+      } else {
+        callback()
+      }
+    }
+    return {
+      ruleForm: {
+        phone: '',
+        code: '',
+      },
 
-                disabled: false,
-                time: 0,
-                btntxt: "重新发送",
-            }
-        },
-        methods: {
-            //手机验证发送验证码
-            sendcode() {
-                const reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/
-                if (this.Register.phone == '') {
-                    this.$message({
-                        message:'手机号不能为空',
-                        center: true
-                    })
-                    return
-                }
-                if (!reg.test(this.Register.phone)) {
-                    this.$message({
-                        message:'请输入正确的手机号',
-                        center:true
-                    })
-                    return
-                } else {
-                    let api = this.HOST + '/getVerificationCode?phone='+this.Register.phone+'&appId=wx129eaf6876332fba'
-                    this.$axios.post(api).then((response) => {
-                      // console.log(response)
-                      if(response.data.code == "1"){
-                        this.$message({
-                          message: '发送成功',
-                          type: 'success',
-                          center:true
-                        });
-                        this.time = 60;
-                        this.disabled = true;
-                        this.timer();
-                      }else{
-                        this.$message({
-                          message: '发送失败',
-                          center:true
-                        });
-                      }
-                    })
-                    
-                }
-            },
-            //60S倒计时
-            timer() {
-                if (this.time > 0) {
-                    this.time--;
-                    this.btntxt = this.time + "s后重新获取";
-                    setTimeout(this.timer, 1000);
-                } else {
-                    this.time = 0;
-                    this.btntxt = "获取验证码";
-                    this.disabled = false;
-                }
-            },
-            submitForm(){
-              const reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/
-              if (!reg.test(this.Register.phone)) {
-                    this.$message({
-                        message:'请输入正确的手机号',
-                        center:true
-                    })
-                    return
-                } else {
-                  let api = this.HOST + '/phoneLogin?phone='+this.Register.phone+'&vCode='+this.Register.sendcode+'&appId=wx129eaf6876332fba'
-                  this.$axios.post(api).then(function(response) {
-                    if(response.data.code == "1"){
-                      // this.$router.go(-1)
-                      let _this = this;
-                        setTimeout(function(){
-                             _this.$router.push({path:'/'});
-                        },500)
-                        sessionStorage.setItem('token',response.data.data);
-                        this.$store.commit("handleUserName",{
-                          user_name:response.data.data.wechatName,
-                          user_logo:response.data.data.headImgUrl,
-                          auto_id:response.data.data.headImgUrl,
-                          app_id:response.data.data.appId,
-                        });
-                      }else if(response.data.code == "0"){
-                          this.$message({
-                          message: '验证不正确！',
-                            center:true
-                          });
-                      }
-                    }.bind(this)).catch(function(err){})
+      disabled: false,
+      time: 0,
+      btntxt: "发送验证码",
+      rules: {
+        phone: [{ validator: validatePhone, trigger: 'blur' }],
+        code: [{validator: validateCode, trigger: 'blur'}]
+      }
+    }
+  },
+  methods: {
+    //手机验证发送验证码
+    sendCode () {
+      let data = {
+        appId: 'wx129eaf6876332fba',
+        phone: this.ruleForm.phone
+      }
+      let params = data
+      getVerificationCode(params)
+        .then(res => {
+          if (res.data.code === 1) {
+            startMinuts((val) => {
+              this.btntxt = val
+              this.disabled = true
+              this.ruleForm.code = '88888'
+              if (val === 1) {
+                this.btntxt = '发送验证码'
+                this.disabled = false
               }
-            }
+            })
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let params = this.initParams()
+          login(params)
+            .then(res => {
+              if (res.data.code === 1) {
+                let userInfor = res.data.data
+                this.$router.push({
+                  path: '/'
+                })
+                setUserInfor(JSON.stringify(userInfor))
+              }
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        } else {
+          return false;
         }
+      });
+    },
+    initParams () {
+      let data = {
+        appId: 'wx129eaf6876332fba',
+        phone: this.ruleForm.phone,
+        vCode: this.ruleForm.code
+      }
+      return data
+    }
+  },
+  mounted () {
+
+  }
 }
 </script>
 <style>
@@ -147,7 +143,7 @@ export default {
     top: 50%;
     transform: translate(-50%,-50%);
   }
-  
+
   .el-input--small .el-input__inner{
     height: 40px;
     line-height: 40px;
@@ -169,5 +165,5 @@ export default {
   .el-form-item__content{
     display: flex;
   }
-  
+
 </style>
