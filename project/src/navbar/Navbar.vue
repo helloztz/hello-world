@@ -48,6 +48,8 @@
 <script>
 import { getUserInfor } from "@/utils/index.js";
 import settings from '@/settings.js'
+import { initInfo } from "@/api/navbar/index.js";
+
 export default {
   name: "Navbar",
   data() {
@@ -63,10 +65,12 @@ export default {
     this.geturl();
   },
   methods: {
+    handleSelect(){},
     geturl() {
-      let appId = settings.global.appId
-      let api = this.HOST + "/companyInfo?appId=" + appId;
-      this.$axios.post(api).then(response => {
+      let params={
+        appId:settings.global.appId
+      }
+      initInfo(params).then(response => {
         this.Logoimgurl = response.data.data.companyInfo.companyLogo;
         this.LogoimgAlt = response.data.data.companyInfo.companyName;
       });
