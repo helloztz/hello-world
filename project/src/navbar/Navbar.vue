@@ -47,6 +47,7 @@
 </template>
 <script>
 import { getUserInfor } from "@/utils/index.js";
+import settings from '@/settings.js'
 export default {
   name: "Navbar",
   data() {
@@ -62,18 +63,13 @@ export default {
     this.geturl();
   },
   methods: {
-    handleSelect() {},
     geturl() {
-      let api = this.HOST + "/companyInfo?appId=wx129eaf6876332fba";
+      let appId = settings.global.appId
+      let api = this.HOST + "/companyInfo?appId=" + appId;
       this.$axios.post(api).then(response => {
         this.Logoimgurl = response.data.data.companyInfo.companyLogo;
         this.LogoimgAlt = response.data.data.companyInfo.companyName;
       });
-      if (!this.$store.getters.userName) {
-        this.flag = true;
-      } else {
-        this.flag = false;
-      }
     },
     submitForm() {
       this.$router.push({ path: "/Login" });
