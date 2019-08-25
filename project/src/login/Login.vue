@@ -25,6 +25,7 @@
 <script>
 import {login, getVerificationCode} from '@/api/login/index.js'
 import {countdown, setUserInfor, getUserInfor} from '@/utils/index.js'
+import settings from '@/settings.js'
 let startMinuts = countdown()
 export default {
   name:'Login',
@@ -66,8 +67,9 @@ export default {
   methods: {
     //手机验证发送验证码
     sendCode () {
+      let appId = settings.global.appId
       let data = {
-        appId: 'wx129eaf6876332fba',
+        appId: appId,
         phone: this.ruleForm.phone
       }
       let params = data
@@ -112,8 +114,9 @@ export default {
       });
     },
     initParams () {
+      let appId = settings.global.appId
       let data = {
-        appId: 'wx129eaf6876332fba',
+        appId: appId,
         phone: this.ruleForm.phone,
         vCode: this.ruleForm.code
       }
