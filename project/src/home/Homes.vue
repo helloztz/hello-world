@@ -7,7 +7,11 @@
           <img src="./images/slides/1.jpg" alt="" style="width: 100%;height: auto;max-width: 100%;max-height: 100%;">
           <div class="swiperText">
             <div class="text" data-swiper-parallax="-300" style="color:#15416e;font-size:60px;">
-                <p>健康管理师<br>健康行业最紧缺的人才</p>
+                <p class="animated bounceInLeft">健康管理师<br>健康行业最紧缺的人才</p>
+            </div>
+            <div class="swiperTextEnglish">
+                <p class="animated bounceInUp">Health Manager,The most scarce talent in the health industry.</p>  
+                <a class="button style1 animated bounceInDown" href="#">GET</a>
             </div>
           </div>
         </swiper-slide>
@@ -15,7 +19,11 @@
           <img src="./images/slides/2.jpg" alt="" style="width: 100%;height: auto;max-width: 100%;max-height: 100%;;">
           <div class="swiperText">
             <div class="text" data-swiper-parallax="-300" style="color:#15416e;font-size:60px;">
-                <p>精品课程<br>教材编委专家精心打造</p>
+                <p class="animated jackInTheBox">精品课程<br>教材编委专家精心打造</p>
+            </div>
+            <div class="swiperTextEnglish">
+                <p class="animated rollIn">Get the most competencies in the fewest bodies.</p>  
+                <a class="button style1 animated lightSpeedIn" href="#">Learn More</a>
             </div>
           </div>
         </swiper-slide>
@@ -24,6 +32,10 @@
           <div class="swiperText">
             <div class="text" data-swiper-parallax="-300" style="color:#15416e;font-size:60px;">
                 <p>手机APP在线学习<br>随时想学就学</p>
+            </div>
+            <div class="swiperTextEnglish">
+                <p>Excellent Courses, Carefully Created by Textbook Editorial Committee Experts.</p>  
+                <a class="button style1" href="#">GET</a>
             </div>
           </div>
         </swiper-slide>
@@ -370,6 +382,7 @@ export default {
                 speed: 600,
                 parallax: true,
                 autoplay:true,
+                loop : true,
                 pagination: {
                     el: '.swiper-pagination',
                     clickable: true
@@ -430,7 +443,7 @@ export default {
   }
   .swiper-slide .text {
     font-size: 14px;
-    max-width: 400px;
+    /* max-width: 400px; */
     line-height: 1.3;
   }
   .swiper-slide img{
@@ -438,8 +451,15 @@ export default {
   }
   .swiperText{
       position: absolute;
-      left:10%;
-      top:15%;
+      left:15%;
+      top:20%;
+  }
+  .swiperText p{
+      font-weight:500;
+  }
+  .swiperTextEnglish p{
+      color:rgb(21, 65, 110);
+      font-weight:800;
   }
   /* .flat-video-fancybox{
     width: 100%;

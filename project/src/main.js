@@ -13,6 +13,7 @@ import './home/assets/js/jquery.min.js';
 import './home/assets/js/bootstrap.min.js';
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
+import './home/assets/css/animate.min.css';
 import VideoPlayer from 'vue-video-player'
 import axios from 'axios'
 import setAppId from './utils/setAppId'
