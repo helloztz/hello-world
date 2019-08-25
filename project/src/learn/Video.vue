@@ -9,7 +9,7 @@
         <div style="margin-top:10px;">
           <div class="left">
             <div>
-              <p>第一节 {{firstNodeName}}</p>
+              <p>第 {{ nodeNumber }} 节 {{firstNodeName}}</p>
             </div>
             <div class="video">
               <div class="player">
@@ -98,7 +98,8 @@ export default {
       },
       appId: "",
       uId: "",
-      gId: ""
+      gId: "",
+      nodeNumber:1
     };
   },
   computed: {
@@ -156,6 +157,9 @@ export default {
       this.firstNodeName = data.firstSubsection
         ? data.firstSubsection.subsectionName
         : data.subsection.subsectionName;
+      this.nodeNumber=data.firstSubsection
+        ? data.firstSubsection.subsectionOrder
+        : data.subsection.subsectionOrder;
       this.playerOptions.poster = data.subsectionQiniuInfo[0].imgUrl;
       this.playerOptions.sources.src = data.subsectionQiniuInfo[2].imgUrl;
       this.firstNodeDetailImg = data.subsectionQiniuInfo[1].imgUrl;
