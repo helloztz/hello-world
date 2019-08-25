@@ -8,5 +8,8 @@ module.exports = {
   },
   router: {
     whiteList: ['/', '/Login']
+  },
+  global: {
+    appId: ""
   }
 }

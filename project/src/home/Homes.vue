@@ -5,7 +5,7 @@
         <div class="parallax-bg" slot="parallax-bg" data-swiper-parallax="-23%"></div>
         <swiper-slide>
           <img src="./images/slides/1.jpg" alt="" style="width: 100%;height: auto;max-width: 100%;max-height: 100%;">
-          <div style="position: absolute;top: 50%;left: 50%;transform: translateX(-50%);transform: translate(-50%)">
+          <div class="swiperText">
             <div class="text" data-swiper-parallax="-300" style="color:#15416e;font-size:60px;">
                 <p>健康管理师<br>健康行业最紧缺的人才</p>
             </div>
@@ -13,7 +13,7 @@
         </swiper-slide>
         <swiper-slide>
           <img src="./images/slides/2.jpg" alt="" style="width: 100%;height: auto;max-width: 100%;max-height: 100%;;">
-          <div style="position: absolute;top: 50%;left: 50%;transform: translateX(-50%);transform: translate(-50%)">
+          <div class="swiperText">
             <div class="text" data-swiper-parallax="-300" style="color:#15416e;font-size:60px;">
                 <p>精品课程<br>教材编委专家精心打造</p>
             </div>
@@ -21,7 +21,7 @@
         </swiper-slide>
         <swiper-slide>
           <img src="./images/slides/3.jpg" alt="" style="width: 100%;height: auto;max-width: 100%;max-height: 100%;;">
-          <div style="position: absolute;top: 50%;left: 50%;transform: translateX(-50%);transform: translate(-50%)">
+          <div class="swiperText">
             <div class="text" data-swiper-parallax="-300" style="color:#15416e;font-size:60px;">
                 <p>手机APP在线学习<br>随时想学就学</p>
             </div>
@@ -341,7 +341,7 @@
                     <div class="flat-video-fancybox">
                         <a class="fancybox" data-type="iframe"
                             href="https://www.youtube.com/embed/2Ge1GGitzLw?autoplay=1">
-                            <img src="images/v1.jpg" alt="images">
+                        <img src="./assets/images/v1.jpg" alt="images">
                         </a>
                     </div>
                 </div><!-- /.col-md-6 -->
@@ -350,7 +350,7 @@
         </div><!-- /.container -->
     </div><!-- /.flat-row -->
     </div>
-
+    
 </template>
 
 <script>
@@ -358,6 +358,10 @@
 // import './js/bootstrap.min.js'
 // import '@/home/'
 import Navbar from '@/navbar/Navbar'
+import settings from '@/settings.js'
+import { getNews } from '@/api/learn/index.js'
+
+
 export default {
     name:'Homes',
     data(){
@@ -365,6 +369,7 @@ export default {
             swiperOption: {
                 speed: 600,
                 parallax: true,
+                autoplay:true,
                 pagination: {
                     el: '.swiper-pagination',
                     clickable: true
@@ -378,14 +383,15 @@ export default {
         }
     },
     created(){
-      // this.getUrl();
+      this.getUrl();
     },
     methods:{
         getUrl(){
-            let api = this.HOST + '/companyInfo?appId=wx129eaf6876332fba';
-            this.$axios.post(api).then((response) => {
+            let params={
+                'appId':settings.global.appId
+            }
+            getNews(params).then((response) => {
                 this.list = response.data.data.companyArticleInfoList;
-                // console.log(response.data.companyArticleInfoList)
             })
         }
     },
@@ -427,4 +433,22 @@ export default {
     max-width: 400px;
     line-height: 1.3;
   }
+  .swiper-slide img{
+      height: 500px !important;
+  }
+  .swiperText{
+      position: absolute;
+      left:10%;
+      top:15%;
+  }
+  /* .flat-video-fancybox{
+    width: 100%;
+    height: 400px;
+    background: #fff;
+    text-align: center;
+    line-height: 400px;
+  }
+  .flat-video-fancybox img{
+      line-height:60px;
+  } */
 </style>

@@ -7,6 +7,11 @@
 <script>
 export default {
   name: 'App',
+  created:function(){
+    // settings.global.appId=window.location.href.split('//')[1].split('.')[0];
+    // settings.global.appId='wx129eaf6876332fba';
+
+  }
 }
 </script>
 
