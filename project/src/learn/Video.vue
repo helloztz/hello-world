@@ -112,7 +112,6 @@ export default {
   },
   methods: {
     fullScreen(){
-
     },
     goBack() {
       this.$router.push({ path: "/List" });
@@ -151,18 +150,24 @@ export default {
       }
     },
     onPlayerPlay(player) {
-      // console.log('player play!', player)
+     
     },
     processData(data) {
       this.firstNodeName = data.firstSubsection
         ? data.firstSubsection.subsectionName
         : data.subsection.subsectionName;
-      this.nodeNumber=data.firstSubsection
+      this.nodeNumber = data.firstSubsection
         ? data.firstSubsection.subsectionOrder
         : data.subsection.subsectionOrder;
-      this.playerOptions.poster = data.subsectionQiniuInfo[0].imgUrl;
-      this.playerOptions.sources.src = data.subsectionQiniuInfo[2].imgUrl;
-      this.firstNodeDetailImg = data.subsectionQiniuInfo[1].imgUrl;
+      data.subsectionQiniuInfo.forEach(item => {
+        if (item.imgType == 3) {
+          this.playerOptions.poster = item.imgUrl;
+        } else if (item.imgType == 1) {
+          this.firstNodeDetailImg = item.imgUrl;
+        } else if (item.imgType == 2) {
+          this.playerOptions.sources[0].src = item.imgUrl;
+        }
+      });
     },
     geturl() {
       this.appId = this.$route.query.appId;
