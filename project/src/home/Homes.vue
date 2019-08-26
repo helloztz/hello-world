@@ -4,7 +4,7 @@
     <swiper :options="swiperOption">
         <div class="parallax-bg" slot="parallax-bg" data-swiper-parallax="-23%"></div>
         <swiper-slide>
-          <img src="./images/slides/1.jpg" alt="" style="width: 100%;height: auto;max-width: 100%;max-height: 100%;">
+          <img class="bannerImg" src="http://img.pooway.net.cn/goods/556999.jpg" alt="" >
           <div class="swiperText">
             <div class="text" data-swiper-parallax="-300" style="color:#15416e;font-size:60px;">
                 <p class="animated bounceInLeft">健康管理师<br>健康行业最紧缺的人才</p>
@@ -16,7 +16,7 @@
           </div>
         </swiper-slide>
         <swiper-slide>
-          <img src="./images/slides/2.jpg" alt="" style="width: 100%;height: auto;max-width: 100%;max-height: 100%;;">
+          <img class="bannerImg" src="http://img.pooway.net.cn/goods/855677.jpg" alt="" >
           <div class="swiperText">
             <div class="text" data-swiper-parallax="-300" style="color:#15416e;font-size:60px;">
                 <p class="animated jackInTheBox">精品课程<br>教材编委专家精心打造</p>
@@ -28,7 +28,7 @@
           </div>
         </swiper-slide>
         <swiper-slide>
-          <img src="./images/slides/3.jpg" alt="" style="width: 100%;height: auto;max-width: 100%;max-height: 100%;;">
+          <img class="bannerImg" src="http://img.pooway.net.cn/goods/857053.jpg" alt="" >
           <div class="swiperText">
             <div class="text" data-swiper-parallax="-300" style="color:#15416e;font-size:60px;">
                 <p>手机APP在线学习<br>随时想学就学</p>
@@ -460,6 +460,10 @@ export default {
   .swiperTextEnglish p{
       color:rgb(21, 65, 110);
       font-weight:800;
+  }
+  .bannerImg{
+      width: 100%;
+      object-fit: cover;
   }
   /* .flat-video-fancybox{
     width: 100%;
