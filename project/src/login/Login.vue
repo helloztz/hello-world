@@ -43,8 +43,8 @@ export default {
     let validateCode = (rule, value, callback) => {
       if (value === '') {
         return callback(new Error('手机验证码不能为空'));
-      } else if (value.length !== 5) {
-        return callback(new Error('手机验证码必须为六位'));
+      } else if (value.length < 5) {
+        return callback(new Error('手机验证码错误'));
       } else {
         callback()
       }
@@ -79,7 +79,7 @@ export default {
             startMinuts((val) => {
               this.btntxt = val
               this.disabled = true
-              this.ruleForm.code = '88888'
+              //this.ruleForm.code = '88888'
               if (val === 1) {
                 this.btntxt = '发送验证码'
                 this.disabled = false
