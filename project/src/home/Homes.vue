@@ -275,17 +275,17 @@
                                             <span class="entry-day">13</span>
                                             <span class="entry-month">Apr</span>
                                         </h4>
-                                        <a href="#"><img :src=item.imgUrl alt="images"></a>
+                                        <a :href=item.articleUrl target="_blank"><img :src=item.imgUrl alt="images"></a>
                                     </div>
                                     <div class="entry-content-wrap">
                                         <div class="entry-header">
                                             <h2 class="entry-title">
-                                                <a href="#">{{item.articleTitle}}</a>
+                                                <a :href="item.articleUrl" target="_blank">{{item.articleTitle}}</a>
                                             </h2>
                                         </div>
                                         <div class="entry-footer">
                                             <div class="entry-meta">
-                                                <span class="entry-author"><a href="#">{{item.articleDescribe}}</a></span>
+                                                <span class="entry-author"><a :href="item.articleUrl" target="_blank">{{item.articleDescribe}}</a></span>
                                                 <!-- <span class="entry-categories"><a href="#">Sales Enablement</a></span> -->
                                             </div>
                                         </div>
@@ -361,6 +361,9 @@
             <div class="clients-image style1 clearfix"></div><!-- /.clients-image -->
         </div><!-- /.container -->
     </div><!-- /.flat-row -->
+      <div class="copyright-content">
+                                    Copyright &copy; 2017.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/"></a>
+                                </div>
     </div>
 </template>
 
@@ -463,6 +466,12 @@ export default {
   .bannerImg{
       width: 100%;
       object-fit: cover;
+  }
+  .copyright-content{
+      text-align: center;
+      line-height:75px;
+      color: #fff;
+      background-color: #15416e;
   }
   /* .flat-video-fancybox{
     width: 100%;
