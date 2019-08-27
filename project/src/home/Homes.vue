@@ -299,7 +299,7 @@
         </div><!-- /.container -->
     </div><!-- /.flat-row -->
 
-    <div class="flat-row pad-bottom0px background-20242e">
+   <div class="flat-row pad-bottom0px background-20242e">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -311,35 +311,35 @@
                         <h4>
                             <span>
                                 <i class="fa fa-check border"></i>
-                                王培玉 教授
+                               王培玉 教授
                             </span>
                         </h4>
-                        <p><span>北大医学部副院长中华医学会健康管理学分会委员
-                                《中华预防医学杂志》、《中国健康教育》及《中华健康管理学杂志》编委.</span></p>
+                        <p><span>国家健康管理师职业资格教材  副主编，
+                                北大医学部公共卫生学院副院长、教授/博士生导师，
+                                社会医学与健康教育系主任</span></p>
                     </div><!-- /.list-about -->
 
                     <div class="list-about">
                         <h4>
                             <span>
                                 <i class="fa fa-check border"></i>
-                                何丽 教授
+                                孙昕霙 教授
                             </span>
                         </h4>
-                        <p><span>全民健康素养巡讲特聘专家
-                                中国疾病预防控制中心营养与健康所科技处处长
-                                健康管理师职业技能鉴定专家工作委员会委员.</span></p>
+                        <p><span>国家健康管理师职业资格教材  编委，
+                                北大医学部公共卫生学院社会医学与健康教育系教授/博士生导师</span></p>
                     </div><!-- /.list-about -->
 
                     <div class="list-about">
                         <h4>
                             <span>
                                 <i class="fa fa-check border"></i>
-                                曾强 教授
+                                刘爱萍 教授
                             </span>
                         </h4>
-                        <p><span>中华医学会健康管理学分会主任委员
-                                中国人民解放军总医院（301医院）健康管理研究院主任
-                                联合国教科文组织生命技术研究院亚洲区副主席.</span></p>
+                         <p><span>国家健康管理师职业资格教材  编委，
+                               北大医学部公共卫生学院社会医学与健康教育系 教授/博士生导师
+                                中华医学会健康管理学分会教育与培训学组委员</span></p>
                     </div><!-- /.list-about -->
                 </div><!-- /.col-md-6 -->
 
@@ -352,8 +352,8 @@
 
                     <div class="flat-video-fancybox">
                         <a class="fancybox" data-type="iframe"
-                            href="https://www.youtube.com/embed/2Ge1GGitzLw?autoplay=1">
-                        <img src="./assets/images/v1.jpg" alt="images">
+                            href="http://qnimg.pooway.net.cn/goods/784745.jpg?autoplay=1">
+                        <img src="http://img.weikaxiangce.com/goods/932709.jpg" alt="images">
                         </a>
                     </div>
                 </div><!-- /.col-md-6 -->
@@ -362,7 +362,6 @@
         </div><!-- /.container -->
     </div><!-- /.flat-row -->
     </div>
-    
 </template>
 
 <script>
