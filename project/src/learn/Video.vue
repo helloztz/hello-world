@@ -12,7 +12,7 @@
               <p>第 {{ nodeNumber }} 节 {{firstNodeName}}</p>
             </div>
             <div class="video">
-              <div class="player">
+              <div class="player" @contextmenu.prevent="preMenu()">
                 <video-player
                   class="video-player vjs-custom-skin"
                   ref="videoPlayer"
@@ -115,6 +115,9 @@ export default {
     },
     goBack() {
       this.$router.push({ path: "/List" });
+    },
+    preMenu () {
+       return false;
     },
     handleNodeClick(data) {
       let that = this;
