@@ -10,7 +10,7 @@
                 <p class="animated bounceInLeft">健康管理师<br>健康行业最紧缺的人才</p>
             </div>
             <div class="swiperTextEnglish">
-                <p class="animated bounceInUp">Health Manager,The most scarce talent in the health industry.</p>  
+                <p class="animated bounceInUp">Health Manager,The most scarce talent in the health industry.</p>
                 <a class="button style1 animated bounceInDown" href="#">GET</a>
             </div>
           </div>
@@ -22,7 +22,7 @@
                 <p class="animated jackInTheBox">精品课程<br>教材编委专家精心打造</p>
             </div>
             <div class="swiperTextEnglish">
-                <p class="animated rollIn">Get the most competencies in the fewest bodies.</p>  
+                <p class="animated rollIn">Get the most competencies in the fewest bodies.</p>
                 <a class="button style1 animated lightSpeedIn" href="#">Learn More</a>
             </div>
           </div>
@@ -34,7 +34,7 @@
                 <p>手机APP在线学习<br>随时想学就学</p>
             </div>
             <div class="swiperTextEnglish">
-                <p>Excellent Courses, Carefully Created by Textbook Editorial Committee Experts.</p>  
+                <p>Excellent Courses, Carefully Created by Textbook Editorial Committee Experts.</p>
                 <a class="button style1" href="#">GET</a>
             </div>
           </div>
@@ -350,7 +350,7 @@
 
                     <div class="flat-divider d30px"></div>
 
-                    <div class="flat-video-fancybox">
+                    <div class="flat-video-fancybox" @contextmenu.prevent="preMenu()">
                         <a class="fancybox" data-type="iframe"
                             href="http://qnimg.pooway.net.cn/goods/784745.jpg?autoplay=1">
                         <img src="http://img.weikaxiangce.com/goods/932709.jpg" alt="images">
@@ -408,6 +408,9 @@ export default {
             getNews(params).then((response) => {
                 this.list = response.data.data.companyArticleInfoList;
             })
+        },
+        preMenu () {
+          return false
         }
     },
     components:{

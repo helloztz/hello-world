@@ -13,11 +13,11 @@ export const countdown = function (fromSeconds = 60, endSeconds = 0, interval = 
     if (time) clearInterval(time)
     time = setInterval(() => {
       fromSeconds -= 1
+      fn && fn(fromSeconds)
       if (fromSeconds === 1) {
         fromSeconds = 60
         clearInterval(time)
       }
-      fn && fn(fromSeconds)
     }, interval)
   }
 }

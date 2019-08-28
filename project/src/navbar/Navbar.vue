@@ -87,10 +87,19 @@ export default {
       } else {
         this.flag = true;
       }
+    },
+    keydownHandle (ev) {
+      if (ev.keyCode === 123) {
+        return false
+      }
     }
   },
-  mounted() {
+  mounted () {
     this.setLoginStatus();
+    window.addEventListener('keydown', this.keydownHandle)
+  },
+  beforeDestroy () {
+    window.beforeDestroy('keydown', this.keydownHandle)
   }
 };
 </script>
