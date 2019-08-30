@@ -24,7 +24,7 @@
                 <router-link to="/List" active-class="activeClass" exact>学习</router-link>
               </el-menu-item>
               <el-menu-item>
-                <a>练习</a>
+                <router-link to="/Classify" active-class="activeClass" exact>练习</router-link>
               </el-menu-item>
               <el-menu-item>
                 <a>考试</a>
@@ -99,7 +99,7 @@ export default {
     window.addEventListener('keydown', this.keydownHandle)
   },
   beforeDestroy () {
-    window.beforeDestroy('keydown', this.keydownHandle)
+    window.removeEventListener('keydown', this.keydownHandle)
   }
 };
 </script>
