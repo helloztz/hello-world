@@ -14,10 +14,10 @@ export default {
   line-height:75px;
   color: #fff;
   background-color: #15416e;
-  position: absolute;
+  /* position: absolute;
   left: 0px;
   bottom: 0px;
   right: 0px;
-  top: calc(100vh - 75px);
+  top: calc(100vh - 75px); */
 }
 </style>
