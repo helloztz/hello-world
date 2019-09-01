@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <div class="nav">
+    <div class="nav" :class="{isFixed: navFixed}">
       <div class="content">
         <el-row>
           <el-col :span="5">
@@ -16,19 +15,13 @@
               class="el-menu-demo"
               mode="horizontal"
               @select="handleSelect"
+              text-color="black"
+              active-text-color="#409eff"
             >
-              <el-menu-item>
-                <router-link to="/" active-class="activeClass" exact>首页</router-link>
-              </el-menu-item>
-              <el-menu-item>
-                <router-link to="/List" active-class="activeClass" exact>学习</router-link>
-              </el-menu-item>
-              <el-menu-item>
-                <router-link to="/Classify" active-class="activeClass" exact>练习</router-link>
-              </el-menu-item>
-              <el-menu-item>
-                <a>考试</a>
-              </el-menu-item>
+              <el-menu-item index="/home">首页</el-menu-item>
+              <el-menu-item index="/List">学习</el-menu-item>
+              <el-menu-item index="/Classify">练习</el-menu-item>
+              <el-menu-item index="/examine">考试</el-menu-item>
             </el-menu>
           </el-col>
           <el-col :span="5">
@@ -43,10 +36,9 @@
         </el-row>
       </div>
     </div>
-  </div>
 </template>
 <script>
-import { getUserInfor } from "@/utils/index.js";
+import { getUserInfor, throttle } from "@/utils/index.js";
 import settings from '@/settings.js'
 import { initInfo } from "@/api/navbar/index.js";
 
@@ -58,7 +50,8 @@ export default {
       LogoimgAlt: "",
       flag: false,
       userSrc: "",
-      userName: ""
+      userName: "",
+      navFixed: false
     };
   },
   created() {
@@ -92,11 +85,21 @@ export default {
       if (ev.keyCode === 123) {
         return false
       }
+    },
+    scrollHandle () {
+      let scrollTop = document.documentElement.scrollTop
+      if (scrollTop >= 80) {
+        this.navFixed = true
+      } else {
+        this.navFixed = false
+      }
     }
   },
   mounted () {
     this.setLoginStatus();
+    let throttleScro = throttle(this.scrollHandle)
     window.addEventListener('keydown', this.keydownHandle)
+    window.addEventListener('scroll', throttleScro)
   },
   beforeDestroy () {
     window.removeEventListener('keydown', this.keydownHandle)
@@ -109,9 +112,17 @@ export default {
   width: 100%;
   height: 80px;
   background: #fff;
+  transition: all 0.5s;
+}
+.isFixed {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  box-shadow: 0px 1px 5px #cccccc;
+  z-index: 100
 }
 .content {
-  width: 1100px;
+  /* width: 1100px; */
   margin: 0 auto;
 }
 .logo {

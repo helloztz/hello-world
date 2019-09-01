@@ -1,13 +1,12 @@
 <template>
   <!-- 练习 练习详情页面 -->
   <div>
-    <Navbar></Navbar>
     <div class="videocontent">
       <div class="Video">
         <div>
           <el-page-header @back="goBack" content="训练结果展示"></el-page-header>
         </div>
-        
+
         <div class="detail" style="margin-top:10px;">
           <p class="chapterTitleP">健康管理师章节练习</p>
             <div class="resultContent">
@@ -40,7 +39,7 @@
       <el-button type="info" @click="goBack()">返回</el-button>
       <el-button type="primary" >再练一次</el-button>
     </div>
-    
+
   </div>
 </template>
 
@@ -54,14 +53,14 @@ export default {
   },
   data() {
     return {
-      
+
     }
   },
   methods: {
     goBack() {
       this.$router.push({ path: "/Classify" });
     }
-   
+
   }
 };
 </script>

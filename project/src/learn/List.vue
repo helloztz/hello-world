@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <!-- <navbar></navbar> -->
     <div class="listcont">
       <div class="listWarp">
         <div>
@@ -31,7 +31,7 @@
 import Navbar from "@/navbar/Navbar";
 import { getCourseList } from '@/api/learn/index.js'
 import settings from '@/settings.js'
-import { getUserInfor } from '@/utils/index.js' 
+import { getUserInfor } from '@/utils/index.js'
 
 export default {
   name: "List",

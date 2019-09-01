@@ -1,7 +1,6 @@
 <template>
   <!-- 练习 练习详情页面 -->
   <div>
-    <Navbar></Navbar>
     <div class="videocontent">
       <div class="Video">
         <div>

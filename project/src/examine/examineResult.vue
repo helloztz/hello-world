@@ -1,0 +1,108 @@
+<template>
+  <div class="examine-result">
+    <div class="examine-bread">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/' }">考试</el-breadcrumb-item>
+        <el-breadcrumb-item>考试结果</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="result-content">
+      <el-row>
+        <el-col :span="16">
+          <div class="progess-box">
+            <div>
+              <el-progress type="circle" :percentage="25"></el-progress>
+            </div>
+            <div>
+              <div class="padding50">恭喜您完成了本次考试！</div>
+              <div>
+                <span>正确：0</span>
+                <span>错误：50</span>
+                <span>本场及格线：30分</span>
+              </div>
+            </div>
+          </div>
+          <div class="result-tabs">
+            <el-tabs v-model="activeName">
+              <el-tab-pane label="全部" name="first">用户管理</el-tab-pane>
+              <el-tab-pane label="查看正确" name="second">配置管理</el-tab-pane>
+              <el-tab-pane label="查看错误" name="third">角色管理</el-tab-pane>
+            </el-tabs>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div>数据参考</div>
+          <ul>
+            <li>
+              <span>当前参与人数：</span>
+              <span>44人</span>
+            </li>
+            <li>
+              <span>当前正答率：</span>
+              <span>44%</span>
+            </li>
+            <li>
+              <span>当前及格率：</span>
+              <span>25%</span>
+            </li>
+            <li>
+              <span>当前及格人数：</span>
+              <span>11人</span>
+            </li>
+            <li class="float">
+              <div>
+                <span>当前最高分：</span>
+                <span>41分</span>
+              </div>
+              <div>
+                共2人
+              </div>
+            </li>
+            <li class="float">
+              <div>
+                <span>当前最低分：</span>
+                <span>0分</span>
+              </div>
+              <div>
+                共2人
+              </div>
+            </li>
+          </ul>
+        </el-col>
+      </el-row>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  name: 'examineResult',
+  data () {
+    return {
+      activeName: 'first'
+    }
+  }
+}
+</script>
+<style scoped>
+.progess-box {
+  display: flex;
+  align-items: center;
+}
+.examine-result {
+  width: 1100px;
+  margin: 0px auto;
+}
+.examine-bread {
+  padding: 40px 0px;
+}
+.padding50 {
+  padding-bottom: 50px;
+}
+.float {
+  display: flex;
+}
+.float div:last-child {
+  flex-grow: 1;
+  text-align: right;
+}
+</style>

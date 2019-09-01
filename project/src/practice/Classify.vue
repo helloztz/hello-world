@@ -1,7 +1,6 @@
 <template>
   <!-- 练习 选择练习类型 -->
   <div>
-    <Navbar></Navbar>
     <div class="listcont">
       <div class="listWarp">
         <div>

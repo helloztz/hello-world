@@ -1,6 +1,6 @@
 <template>
     <div>
-        <navbar></navbar>
+        <!-- <navbar></navbar> -->
     <swiper :options="swiperOption">
         <div class="parallax-bg" slot="parallax-bg" data-swiper-parallax="-23%"></div>
         <swiper-slide>
@@ -361,9 +361,6 @@
             <div class="clients-image style1 clearfix"></div><!-- /.clients-image -->
         </div><!-- /.container -->
     </div><!-- /.flat-row -->
-      <div class="copyright-content">
-                                    Copyright &copy; 2017.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/"></a>
-                                </div>
     </div>
 </template>
 

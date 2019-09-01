@@ -41,3 +41,24 @@ export const getUserInfor = function () {
 export const removeUserInfor = function () {
   window.localStorage.removeItem(tokenName)
 }
+/**
+ * @description 节流函数
+*/
+export const throttle = (fn, dealy = 500) => {
+  let time = null,
+      isFirst = true
+    return function (...args) {
+      if (isFirst) {
+        fn && fn.apply(this,args)
+        return isFirst = false
+      }
+      if (time) {
+        return false
+      }
+      time = setTimeout(() => {
+        clearTimeout(time)
+        time = false
+        fn && fn.apply(this, args)
+      }, dealy)
+    }
+}
