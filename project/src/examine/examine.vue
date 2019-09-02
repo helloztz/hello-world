@@ -4,16 +4,16 @@
         章节考试列表
     </div>
     <el-row :gutter="20">
-      <el-col :span="8">
+      <el-col :span="12">
         <examine-com></examine-com>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="12">
         <examine-com></examine-com>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="12">
         <examine-com></examine-com>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="12">
         <examine-com></examine-com>
       </el-col>
     </el-row>

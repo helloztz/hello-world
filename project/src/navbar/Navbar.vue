@@ -18,7 +18,7 @@
               text-color="black"
               active-text-color="#409eff"
             >
-              <el-menu-item index="/home">首页</el-menu-item>
+              <el-menu-item index="/">首页</el-menu-item>
               <el-menu-item index="/List">学习</el-menu-item>
               <el-menu-item index="/Classify">练习</el-menu-item>
               <el-menu-item index="/examine">考试</el-menu-item>

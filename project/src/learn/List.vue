@@ -29,9 +29,9 @@
 
 <script>
 import Navbar from "@/navbar/Navbar";
-import { getCourseList } from '@/api/learn/index.js'
-import settings from '@/settings.js'
-import { getUserInfor } from '@/utils/index.js'
+import { getCourseList } from "@/api/learn/index.js";
+import settings from "@/settings.js";
+import { getUserInfor } from "@/utils/index.js";
 
 export default {
   name: "List",
@@ -59,10 +59,10 @@ export default {
     },
     geturl() {
       let that = this;
-      let params={
-        'appId':settings.global.appId,
-        'uId':getUserInfor().autoId
-      }
+      let params = {
+        appId: settings.global.appId,
+        uId: getUserInfor().autoId
+      };
       getCourseList(params).then(response => {
         that.list = response.data.data;
         that.list.forEach(function(item) {
@@ -77,6 +77,9 @@ export default {
 </script>
 
 <style scoped>
+h4 {
+  margin: 17px 0;
+}
 .listcont {
   width: 1100px;
   margin: 0 auto;
@@ -93,9 +96,9 @@ export default {
   background-position: left top;
   background-size: 320px 160px;
   background-repeat: no-repeat;
-  padding:10px;
-  border-radius:5px;
-  margin-top:10px;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 .list {
   display: flex;

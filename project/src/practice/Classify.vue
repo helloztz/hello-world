@@ -6,7 +6,7 @@
         <div>
           <h4 class="paddingLeft20">章节练习列表</h4>
         </div>
-        <div style="background:rgb(236,239,242); overflow: hidden;">
+        <div style="background:rgb(236,239,242); overflow: hidden;padding-bottom:30px;">
           <el-row :gutter="20">
             <el-col :span="12">
               <div class="list listCard">
@@ -60,8 +60,11 @@ export default {
 </script>
 
 <style scoped lang="less">
-p{
+p {
   margin: 0;
+}
+h4{
+  margin:17px 0;
 }
 .listcont {
   width: 1100px;
@@ -143,12 +146,12 @@ p{
   bottom: 20px;
   right: 30px;
 }
-.content{
-  h4{
-    margin-top:10px;
+.content {
+  h4 {
+    margin-top: 10px;
   }
 }
-.list:hover{
-  transform: translateY(-5px);
+.list:hover {
+  box-shadow: 5px 5px 5px #ccc;
 }
 </style>
