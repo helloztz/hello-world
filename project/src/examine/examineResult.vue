@@ -16,21 +16,27 @@
             <div>
               <div class="padding50">恭喜您完成了本次考试！</div>
               <div>
-                <span>正确：0</span>
-                <span>错误：50</span>
-                <span>本场及格线：30分</span>
+                <span>正确：{{correstAnswer.length}}</span>
+                <span>错误：{{errorAnswer.length}}</span>
+                <!-- <span>本场及格线：30分</span> -->
               </div>
             </div>
           </div>
           <div class="result-tabs">
             <el-tabs v-model="activeName">
-              <el-tab-pane label="全部" name="first">用户管理</el-tab-pane>
-              <el-tab-pane label="查看正确" name="second">配置管理</el-tab-pane>
-              <el-tab-pane label="查看错误" name="third">角色管理</el-tab-pane>
+              <el-tab-pane label="全部" name="first">
+                <examine-card :questionList="allAnswer"></examine-card>
+              </el-tab-pane>
+              <el-tab-pane label="查看正确" name="second">
+                <examine-card :questionList="correstAnswer"></examine-card>
+              </el-tab-pane>
+              <el-tab-pane label="查看错误" name="third">
+                <examine-card :questionList="errorAnswer"></examine-card>
+              </el-tab-pane>
             </el-tabs>
           </div>
         </el-col>
-        <el-col :span="8">
+        <!-- <el-col :span="8">
           <div>数据参考</div>
           <ul>
             <li>
@@ -68,18 +74,44 @@
               </div>
             </li>
           </ul>
-        </el-col>
+        </el-col> -->
       </el-row>
     </div>
   </div>
 </template>
 <script>
+import examineCard from './moduleCom/answerCard'
 export default {
   name: 'examineResult',
   data () {
     return {
-      activeName: 'first'
+      activeName: 'first',
+      correstAnswer: [],
+      errorAnswer: [],
+      allAnswer: []
     }
+  },
+  components: {
+    examineCard
+  },
+  methods: {
+    getQuery () {
+      let list = this.$route.query.questionList
+      if (list === undefined || list.length === 0) return
+      let questionList = JSON.parse(list)
+      let correstAnswer = questionList.filter(ele => {
+        return ele.answer === ele.questionAnswer
+      })
+      let errorAnswer = questionList.filter(ele => {
+        return ele.answer !== ele.questionAnswer
+      })
+      this.correstAnswer = correstAnswer
+      this.errorAnswer = errorAnswer
+      this.allAnswer = questionList
+    }
+  },
+  mounted () {
+    this.getQuery()
   }
 }
 </script>

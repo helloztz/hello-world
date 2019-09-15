@@ -22,11 +22,11 @@ body{
   background: #f0f2f5;
 }
 html,body {
-  widows: 100%;
-  height: 100%;
+  width: 100%;
+  /* height: 100%; */
 }
 #app {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
 }
 </style>

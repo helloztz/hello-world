@@ -27,6 +27,6 @@ export default {
 .main-content {
   width: 100%;
   min-height: calc(100vh - 80px - 75px);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 </style>

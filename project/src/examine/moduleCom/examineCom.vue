@@ -2,32 +2,37 @@
   <div class="examine-module">
     <div>
       <span class="grow-1 title">
-        健康管理师模拟考试1
+        {{examineDetails.examinationName}}
       </span>
-      <span class="right-width">
-        59：55
-      </span>
+      <!-- <span class="right-width">
+        {{examineDetails.canUseTime}}
+      </span> -->
     </div>
     <div>
       <span>
         考试时间：
       </span>
       <span>
-        2019.9.10 10:10
+        {{examineDetails.startTime}}
       </span>
     </div>
     <div>
       <span>
-        试题数量
+        试题数量：
+      </span>
+      <span>
+        {{examineDetails.questionNum}}
       </span>
     </div>
     <div>
       <span class="grow-1">
         <span>考试时长：</span>
-        <span>60分钟</span>
+        <span>
+          {{examineDetails.canUseTime + '分钟'}}
+        </span>
       </span>
       <span class="right-width">
-        <el-button type="success" @click="submitForm">{{btnText}}</el-button>
+        <el-button type="success" @click="submitForm(examineDetails)" :disabled="btnStatus">{{btnText}}</el-button>
       </span>
     </div>
   </div>
@@ -37,14 +42,44 @@ export default {
   name: 'examineModule',
   data () {
     return {
-      btnText: '未开始'
+
+    }
+  },
+  props: {
+    examineDetails: {
+      type: Object
     }
   },
   methods: {
-    submitForm () {
+    submitForm (param) {
       this.$router.push({
-        path: '/examineDetail'
+        path: '/examineDetail',
+        query: {
+          examinationId: param.testPaperId
+        }
       })
+    }
+  },
+  computed: {
+    btnText () {
+      let status = this.examineDetails.examinationStatus
+      let text = ''
+      if (status === 0) {
+        text = '未开始'
+      } else if (status === 1) {
+        text = '开始考试'
+      } else {
+        text = '已结束'
+      }
+      return text
+    },
+    btnStatus () {
+      let status = this.examineDetails.examinationStatus
+      if (status === 1 || status === 2) {
+        return false
+      } else {
+        return true
+      }
     }
   }
 }

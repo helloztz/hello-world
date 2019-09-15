@@ -11,5 +11,8 @@ module.exports = {
   },
   global: {
     appId: ""
+  },
+  examineData: {
+    time: ''
   }
 }
