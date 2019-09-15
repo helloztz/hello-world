@@ -62,3 +62,23 @@ export const throttle = (fn, dealy = 500) => {
       }, dealy)
     }
 }
+/**
+ * 存储练习信息到本地存储
+ */
+export const setLocalStorage = function (key,val) {
+  window.localStorage.setItem(key, JSON.stringify(val));
+}
+/**
+ * 存储练习信息到本地存储
+ */
+export const getLocalStorage = function (key) {
+  let info = window.localStorage.getItem(key)
+  return JSON.parse(info)
+}
+/**
+ * 删除本地存储中的练习信息
+ */
+export const removeLocalStorage = function (key) {
+   window.localStorage.removeItem(key)
+}
+

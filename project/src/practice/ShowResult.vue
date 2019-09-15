@@ -8,44 +8,30 @@
         </div>
 
         <div class="detail" style="margin-top:10px;">
-          <p class="chapterTitleP">健康管理师章节练习</p>
-            <div class="resultContent">
-              <div>第一章</div>
-              <div class="resultCell">
-                <span class="chapterTitleCell">未答</span>
-                <span>第1题</span>
-              </div>
-              <div class="resultCell">
-                <span class="chapterTitleCell success">正确</span>
-                <span>第2题</span>
-              </div>
-              <div class="resultCell">
-                <span class="chapterTitleCell error">错误</span>
-                <span>第3题</span>
-              </div>
-              <div class="resultCell">
-                <span class="chapterTitleCell">未答</span>
-                <span>第4题</span>
-              </div>
-              <div class="resultCell">
-                <span class="chapterTitleCell">未答</span>
-                <span>第5题</span>
-              </div>
+          <p class="chapterTitleP">{{topicName}} 章节练习</p>
+          <div class="resultContent">
+            <div class="resultCell" v-for="(item,index) in dataList" :key="index">
+              <span
+                class="chapterTitleCell"
+                :class="{'complete':item.state==1,'error':item.state==2}"
+              >{{item.state==0?'未答':item.state==1?'正确':'错误'}}</span>
+              <span>第{{index+1}}题</span>
             </div>
+          </div>
         </div>
       </div>
     </div>
     <div class="endBtn">
       <el-button type="info" @click="goBack()">返回</el-button>
-      <el-button type="primary" >再练一次</el-button>
+      <el-button type="primary" @click="restart()">重新练习</el-button>
     </div>
-
   </div>
 </template>
 
 <script>
 import Navbar from "@/navbar/Navbar";
-
+import { setLocalStorage } from "@/utils/index.js";
+import { getPracticeDetail } from "@/api/practice/index.js";
 export default {
   name: "ShowResult",
   components: {
@@ -53,14 +39,49 @@ export default {
   },
   data() {
     return {
-
-    }
+      topicName: "",
+      dataList: []
+    };
+  },
+  created() {
+    this.topicName = this.$route.query.topicName;
+    var params = {
+      appId: this.$route.query.appId,
+      uId: this.$route.query.uId,
+      topicId: this.$route.query.topicId,
+      topicAnswerId: this.$route.query.topicAnswerId
+    };
+    let that = this;
+    getPracticeDetail(params).then(function(response) {
+      var data = response.data.data;
+      that.dataList = data;
+      that.dataList.forEach(item => {
+        if (item.userAnswer && item.questionAnswer == item.userAnswer) {
+          item.state = 1;
+        }
+        if (item.userAnswer && item.questionAnswer != item.userAnswer) {
+          item.state = 2;
+        }
+      });
+    });
+    // state  0 未答题  1 正确 2 错误
   },
   methods: {
     goBack() {
       this.$router.push({ path: "/Classify" });
+    },
+    restart() {
+      // 重新开始   restart 1 重新开始
+      setLocalStorage("judge-restart" + this.$route.query.topicId, "1");
+      this.$router.push({
+        path: "/Detail",
+        query: {
+          topicName: this.$route.query.topicName,
+          topicId: this.$route.query.topicId,
+          topicAnswerId: this.$route.query.topicAnswerId
+        }
+      });
     }
-
   }
 };
 </script>
@@ -145,22 +166,39 @@ export default {
   flex: 1 0 90%;
   order: 1;
 }
-.chapterTitleP{
-  text-align:center;
+.chapterTitleP {
+  text-align: center;
   padding: 10px;
-  font-size:18px;
+  font-size: 18px;
 }
-.resultContent{
-  padding: 0 20px 20px 20px;
+.resultContent {
+  padding: 0 20px 20px 75px;
+  // text-align: center;
 }
-.resultCell{
-  display:inline-block;
+.resultCell {
+  text-align: left;
+  display: inline-block;
   white-space: nowrap;
-  margin-right:5px;
+  margin-right: 5px;
   font-size: 14px;
+  width: 100px;
+  margin-bottom: 5px;
+}
+.chapterTitleCell {
+  background-color: #909399;
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+.complete {
+  background-color: #67c23a;
+}
+.success {
+  background-color: #67c23a;
+}
+.error {
+  background-color: #ff4d4f;
 }
 </style>
 <style lang="less">
-
-
 </style>
