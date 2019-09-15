@@ -23,11 +23,7 @@ body{
 }
 html,body {
   width: 100%;
-<<<<<<< HEAD
   /* height: 100%; */
-=======
-  height: 100%;
->>>>>>> 289fcd15f8695b17a6e465963d204e1d94560bcd
 }
 #app {
   width: 100%;
