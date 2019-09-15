@@ -1,6 +1,5 @@
 import settings from '@/settings.js'
 import Vue from 'vue'
-import { json } from 'body-parser';
 let tokenName = settings.user.useInfor
 /**
  * @description 倒计时
@@ -185,4 +184,23 @@ export const setExamineQuestion = (params) => {
 export const getExamineQuestion = () => {
   let extions = window.localStorage.getItem(LOCALKEY)
   return JSON.parse(extions)
+}
+/**
+ * 存储练习信息到本地存储
+ */
+export const setLocalStorage = function (key,val) {
+  window.localStorage.setItem(key, JSON.stringify(val));
+}
+/**
+ * 存储练习信息到本地存储
+ */
+export const getLocalStorage = function (key) {
+  let info = window.localStorage.getItem(key)
+  return JSON.parse(info)
+}
+/**
+ * 删除本地存储中的练习信息
+ */
+export const removeLocalStorage = function (key) {
+   window.localStorage.removeItem(key)
 }
