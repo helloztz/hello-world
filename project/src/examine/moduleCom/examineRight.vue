@@ -34,7 +34,8 @@ export default {
       this.$router.push({
         path: '/examineResult',
         query: {
-          questionList: JSON.stringify(this.questionList)
+          questionList: JSON.stringify(this.questionList),
+          examinationId: this.$route.query.examinationId
         }
       })
     }

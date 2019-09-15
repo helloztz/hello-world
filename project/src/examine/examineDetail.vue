@@ -27,7 +27,7 @@
 <script>
 import examineLeft from './moduleCom/examineLeft'
 import examineRight from './moduleCom/examineRight'
-import {examineDetail} from '@/api/examine/index.js'
+import {examineDetail, userRestartExamination} from '@/api/examine/index.js'
 import {countdownTime} from '@/utils/index.js'
 import setting from '@/settings.js'
 export default {
@@ -46,11 +46,7 @@ export default {
   },
   methods: {
     getExamineDetail () {
-      let params = {
-        appId: 'wx129eaf6876332fba',
-        uId: '633',
-        examinationId: this.examinationId
-      }
+      let params = this.initParams()
       examineDetail(params)
         .then(res => {
           if (res.data.code === 1) {
@@ -81,7 +77,8 @@ export default {
               this.$router.push({
                 path: '/examineResult',
                 query: {
-                  questionList: JSON.stringify(list)
+                  questionList: JSON.stringify(list),
+                  examinationId: this.$route.query.examinationId
                 }
               })
             }
@@ -89,7 +86,8 @@ export default {
               this.$router.push({
                 path: '/examineResult',
                 query: {
-                  questionList: JSON.stringify(questionList)
+                  questionList: JSON.stringify(questionList),
+                  examinationId: this.$route.query.examinationId
                 }
               })
             }
@@ -101,7 +99,8 @@ export default {
               this.$router.push({
                 path: '/examineResult',
                 query: {
-                  questionList: list
+                  questionList: JSON.stringify(list),
+                  examinationId: this.$route.query.examinationId
                 }
               })
             }
@@ -126,14 +125,39 @@ export default {
     },
     getRouterQuery () {
       this.examinationId = this.$route.query.examinationId
+      if (this.$route.query.mes!==undefined) {
+        this.examinePractice()
+      } else {
+        this.getExamineDetail()
+      }
+
     },
     saveLocal (val) {
       this.questionList = val
+    },
+    examinePractice () {
+      let params = this.initParams()
+      userRestartExamination(params)
+        .then(res => {
+          if (res.data.code === 1) {
+            this.examineDetail = res.data.data
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    initParams () {
+      let params = {
+        appId: settings.global.appId,
+        uId: getUserInfor().autoId,
+        examinationId: this.examinationId
+      }
+      return params
     }
   },
   mounted () {
     this.getRouterQuery()
-    this.getExamineDetail()
   },
 }
 </script>

@@ -24,9 +24,9 @@
   </el-card>
 </template>
 <script>
-import {eventBus, setExamineQuestion} from '@/utils/index.js'
+import {eventBus, setExamineQuestion, getUserInfor} from '@/utils/index.js'
 import {submitQuestion} from '@/api/examine/index.js'
-import setting from '@/settings.js'
+import settings from '@/settings.js'
 export default {
   name: 'examineLeft',
   data () {
@@ -60,6 +60,7 @@ export default {
     examineDetail: {
       handler (newVal, oldVal) {
         if (newVal && newVal.questionInfoList) {
+          this.examineDetail.questionNum = newVal.questionInfoList.length
           let list = JSON.parse(JSON.stringify(newVal.questionInfoList)).map(ele => {
             let question = ele['answerX'].split(';')
             ele['answerX'] = question
@@ -79,7 +80,9 @@ export default {
       this.questionId = item.questionId
       let page = this.page - 1
       this.setQuestionStatus(page,item)
-      this.subQuestion()
+      if (this.$route.query.mes === undefined) {
+        this.subQuestion()
+      }
       this.radio = ''
       this.page+=1
     },
@@ -103,8 +106,10 @@ export default {
     initQueParams () {
       let params = {
         examinationId: this.examinationId,
+        // appId: settings.global.appId,
+        // uId: getUserInfor().autoId,
         appId: 'wx129eaf6876332fba',
-        uId: 633,
+        uId: '633',
         questionId: this.questionId,
         questionOrder: this.page,
         isLsat: this.isLsat,

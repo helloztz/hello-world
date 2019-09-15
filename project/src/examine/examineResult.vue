@@ -34,6 +34,7 @@
                 <examine-card :questionList="errorAnswer"></examine-card>
               </el-tab-pane>
             </el-tabs>
+            <el-button type="success" @click="reconnect">重新练习</el-button>
           </div>
         </el-col>
         <!-- <el-col :span="8">
@@ -108,6 +109,16 @@ export default {
       this.correstAnswer = correstAnswer
       this.errorAnswer = errorAnswer
       this.allAnswer = questionList
+    },
+    reconnect () {
+      let id = this.$route.query.examinationId
+      this.$router.push({
+        path: '/examineDetail',
+        query: {
+          mes: 'go',
+          examinationId: id
+        }
+      })
     }
   },
   mounted () {

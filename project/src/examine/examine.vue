@@ -14,6 +14,8 @@
 </template>
 <script>
 import examineCom from './moduleCom/examineCom'
+import settings from '@/settings.js'
+import {getUserInfor} from '@/utils/index.js'
 import {getExamineList} from '@/api/examine/index.js'
 export default {
   name: 'examine',
@@ -28,8 +30,8 @@ export default {
   methods: {
     getExamineList () {
       let params = {
-        appId: 'wx129eaf6876332fba',
-        uId: '633'
+        appId: settings.global.appId,
+        uId: getUserInfor().autoId,
       }
       getExamineList(params)
         .then(res => {

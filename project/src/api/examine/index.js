@@ -32,3 +32,14 @@ export const submitQuestion = (params) => {
     params: params
   })
 }
+/**
+ * @description 考试练习
+ * @param {*} params
+*/
+export const userRestartExamination = (params) => {
+  return axiosInstance({
+    url: '/userRestartExamination',
+    method: 'post',
+    params: params
+  })
+}
