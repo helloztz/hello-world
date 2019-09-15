@@ -8,29 +8,16 @@
         </div>
         <div style="background:rgb(236,239,242); overflow: hidden;padding-bottom:30px;">
           <el-row :gutter="20">
-            <el-col :span="12">
+            <el-col :span="12" v-for="(item, index) in dataList" :key="index">
               <div class="list listCard">
                 <div class="content">
-                  <h4>健康管理师章节练习</h4>
-                  <p>共 51 章节</p>
-                  <p>目前已完成 2 个章节，加油!</p>
+                  <h4>{{item.topicName}}</h4>
+                  <p>共 {{item.totalNum}} 题</p>
+                  <p>目前已完成 {{item.completeNum}} 个题目，加油!</p>
                   <div>
-                    <el-progress :percentage="10"></el-progress>
+                    <el-progress  :percentage="item.progress"></el-progress>
                   </div>
-                  <el-button type="primary" @click="startPractice()">开始练习</el-button>
-                </div>
-              </div>
-            </el-col>
-            <el-col :span="12">
-              <div class="list listCard">
-                <div class="content">
-                  <h4>健康管理师章节练习</h4>
-                  <p>共 51 章节</p>
-                  <p>目前已完成 2 个章节，加油!</p>
-                  <div>
-                    <el-progress :percentage="10"></el-progress>
-                  </div>
-                  <el-button type="primary" @click="startPractice()">开始练习</el-button>
+                  <el-button type="primary" @click="startPractice(item)">开始练习</el-button>
                 </div>
               </div>
             </el-col>
@@ -43,18 +30,48 @@
 
 <script>
 import Navbar from "@/navbar/Navbar";
+import { getPracticeList } from "@/api/practice/index.js";
+import settings from "@/settings.js";
+import { getUserInfor,removeLocalStorage } from "@/utils/index.js";
 export default {
   name: "Classify",
   components: {
     Navbar
   },
+  data() {
+    return {
+      dataList:[]
+    };
+  },
   methods: {
-    startPractice() {
+    startPractice(item) {
+      if(item.topicAnswerId){
+        removeLocalStorage('practice-data'+item.topicId);
+      }
       this.$router.push({
         path: "/Detail",
-        query: {}
+        query: {
+          topicId:item.topicId,
+          topicName:item.topicName,
+          topicAnswerId:item.topicAnswerId
+        }
       });
     }
+  },
+  created() {
+    var params = {
+      appId: settings.global.appId,
+      uId: getUserInfor().autoId
+    };
+    var that = this;
+    getPracticeList(params).then(function(response) {
+      var data = response.data.data;
+      that.dataList=data;
+      that.dataList.forEach(item => {
+        item.completeNum=Math.round(item.totalNum*Number(item.topicProgress)/100);
+        item.progress=Math.floor(item.completeNum/item.totalNum*100*10)/10;
+      });
+    });
   }
 };
 </script>
@@ -63,8 +80,8 @@ export default {
 p {
   margin: 0;
 }
-h4{
-  margin:17px 0;
+h4 {
+  margin: 17px 0;
 }
 .listcont {
   width: 1100px;
