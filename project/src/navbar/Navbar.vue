@@ -31,6 +31,7 @@
             <div class="message" v-else>
               <img :src="userSrc" />
               <span style="font-size:15px;margin-left:5px;">{{userName}}</span>
+              <el-button type="success" @click="exitHandle">退出</el-button>
             </div>
           </el-col>
         </el-row>
@@ -38,7 +39,7 @@
     </div>
 </template>
 <script>
-import { getUserInfor, throttle } from "@/utils/index.js";
+import { getUserInfor, throttle, removeUserInfor } from "@/utils/index.js";
 import settings from '@/settings.js'
 import { initInfo } from "@/api/navbar/index.js";
 
@@ -70,6 +71,12 @@ export default {
     },
     submitForm() {
       this.$router.push({ path: "/Login" });
+    },
+    exitHandle () {
+      removeUserInfor()
+      this.$router.push({
+        path: '/'
+      })
     },
     setLoginStatus() {
       let status = getUserInfor();
