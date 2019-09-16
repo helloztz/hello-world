@@ -28,8 +28,8 @@
 import examineLeft from './moduleCom/examineLeft'
 import examineRight from './moduleCom/examineRight'
 import {examineDetail, userRestartExamination} from '@/api/examine/index.js'
-import {countdownTime} from '@/utils/index.js'
-import setting from '@/settings.js'
+import {countdownTime,getUserInfor} from '@/utils/index.js'
+import settings from '@/settings.js'
 export default {
   name: 'examineDetail',
   components: {
@@ -110,7 +110,7 @@ export default {
                 clearInterval(time)
               }
               this.canUseTime = val
-              setting.examineData.time = val
+              settings.examineData.time = val
               let data = {
                 data: this.questionList,
                 time: val

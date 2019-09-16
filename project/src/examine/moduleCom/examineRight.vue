@@ -6,7 +6,7 @@
       </div>
       <examine-card :questionList="questionList"></examine-card>
       <div class="card-btn" v-show="questionList.length > 0">
-        <el-button type="success" @click="backExamineDetail" :disabled="questionList.length === 0">提交</el-button>
+        <el-button type="success" @click="backExamineDetail" :disabled="questionList.length === 0">交卷</el-button>
       </div>
     </el-card>
   </div>
