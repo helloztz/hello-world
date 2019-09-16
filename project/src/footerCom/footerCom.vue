@@ -1,6 +1,6 @@
 <template>
   <div class="copyright-content">
-    Copyright &copy; 2017.Company name All rights reserved.
+    Copyright © 2017-2019 pooway. All rights reserved
   </div>
 </template>
 <script>
