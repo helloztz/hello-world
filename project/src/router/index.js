@@ -10,6 +10,7 @@ import Examine from '@/examine/examine'
 import Layout from '@/layout/layout'
 import ExamineDetail from '@/examine/ExamineDetail'
 import ExamineResult from '@/examine/ExamineResult'
+import Video from '@/learn/Video'
 Vue.use(Router)
 
 export default new Router({
@@ -29,6 +30,18 @@ export default new Router({
         {
           path: '/',
           component: Homes
+        }
+      ]
+    },
+    {
+      path: '/Video',
+      name: 'video',
+      component: Layout,
+      redirect: '/Video',
+      children: [
+        {
+          path: '/Video',
+          component: Video
         }
       ]
     },
