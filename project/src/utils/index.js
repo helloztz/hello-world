@@ -204,3 +204,9 @@ export const getLocalStorage = function (key) {
 export const removeLocalStorage = function (key) {
    window.localStorage.removeItem(key)
 }
+/**
+ * @description 求两个数组的交集
+ * @param {Array} arr1
+ * @param {Array} arr2
+*/
+export const intersection = (arr1, arr2)  => arr1.filter(v => arr2.includes(v))

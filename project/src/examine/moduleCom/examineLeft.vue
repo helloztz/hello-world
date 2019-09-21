@@ -12,13 +12,18 @@
           {{item.question}}
         </span>
       </div>
-      <div class="examine-radio">
+      <div class="examine-radio" v-if="item.questionType === 1">
         <el-radio-group v-model="radio">
-          <el-radio :label="ele" v-for="(ele, inde) in item.answerX" :key="inde" @change="changeRadio">{{ele}}</el-radio>
+          <el-radio :label="ele" v-for="(ele, index) in item.answerX" :key="index" @change="changeRadio">{{ele}}</el-radio>
         </el-radio-group>
       </div>
+      <div class="examine-radio" v-else>
+        <el-checkbox-group v-model="checkList">
+          <el-checkbox :label="ele" v-for="(ele, inde) in item.answerX" :key="inde" @change="changeBox(index)"></el-checkbox>
+        </el-checkbox-group>
+      </div>
       <div class="left-but">
-        <el-button type="success" @click="nextQuestion(item)" :disabled="index===questionList.length - 1">提交</el-button>
+        <el-button type="success" @click="nextQuestion(item, index)" :disabled="index===questionList.length">提交</el-button>
       </div>
     </div>
   </el-card>
@@ -38,7 +43,8 @@ export default {
       questionId: '',
       examinationId: '',
       userAnswer: '',
-      isLsat: 0
+      isLsat: 0,
+      checkList: []
     }
   },
   props: {
@@ -65,7 +71,11 @@ export default {
             let question = ele['answerX'].split(';')
             ele['answerX'] = question
             ele['isAnswer'] = false
-            ele['answer'] = ''
+            if (ele.questionType === 2) {
+              ele['answer'] = []
+            } else {
+              ele['answer'] = ''
+            }
             return ele
           })
           this.questionList = list
@@ -76,18 +86,29 @@ export default {
     }
   },
   methods: {
-    nextQuestion (item) {
+    nextQuestion (item, index) {
       this.questionId = item.questionId
       let page = this.page - 1
       this.setQuestionStatus(page,item)
       if (this.$route.query.mes === undefined) {
         this.subQuestion()
       }
-      this.radio = ''
+      if (this.page === this.questionList.length) {
+        return
+      }
+      if (item.questionType === 1) {
+        this.radio = this.questionList[this.page].answer
+      } else {
+        this.checkList = this.questionList[this.page].answer
+      }
       this.page+=1
     },
     changeRadio (val) {
       this.userAnswer = val
+    },
+    changeBox (index) {
+      this.userAnswer = this.checkList.join(';')
+      this.questionList[index].answer = this.checkList
     },
     setQuestionStatus (index, item) {
       if (index === this.questionList.lenght) { // 是否为最后一题
@@ -97,6 +118,10 @@ export default {
       if (this.radio !== '') { // 该道题答过了
         this.questionList[index]['isAnswer'] = true
         this.questionList[index]['answer'] = this.radio
+      }
+      if (this.checkList.length > 0) {
+        this.questionList[index]['isAnswer'] = true
+        this.questionList[index]['answer'] = this.checkList
       }
       let questions = JSON.stringify(this.questionList)
       // setExamineQuestion(questions)
@@ -133,7 +158,11 @@ export default {
     eventBus.$emit('setStatus', this.questionList)
     eventBus.$on('setQue', val => {
       this.page = val.index + 1
-      this.radio = val.item.answer
+      if (val.item.questionType === 1) {
+        this.radio = val.item.answer
+      } else {
+        this.checkList = val.item.answer
+      }
     })
   }
 }
@@ -145,6 +174,10 @@ export default {
 </style>
 <style>
 .examine-radio .el-radio-group {
+  display: flex;
+  flex-direction: column;
+}
+.examine-radio .el-checkbox-group {
   display: flex;
   flex-direction: column;
 }

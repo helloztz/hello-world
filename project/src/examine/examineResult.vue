@@ -82,6 +82,7 @@
 </template>
 <script>
 import examineCard from './moduleCom/answerCard'
+import {intersection} from '@/utils/index'
 export default {
   name: 'examineResult',
   data () {
@@ -100,14 +101,26 @@ export default {
       let list = this.$route.query.questionList
       if (list === undefined || list.length === 0) return
       let questionList = JSON.parse(list)
-      let correstAnswer = questionList.filter(ele => {
+      let radios = questionList.filter(ele => ele.questionType === 1)
+      let checks = questionList.filter(ele => ele.questionType === 2)
+      let correstAnswer = radios.filter(ele => {
         return ele.answer === ele.questionAnswer
       })
-      let errorAnswer = questionList.filter(ele => {
+      let errorAnswer = radios.filter(ele => {
         return ele.answer !== ele.questionAnswer
       })
-      this.correstAnswer = correstAnswer
-      this.errorAnswer = errorAnswer
+      let corresCheck = checks.filter(ele => {
+        let answer = ele.questionAnswer.split(';')
+        let resultArr = intersection(answer, ele.answer)
+        return resultArr.length > 0
+      })
+      let errorCheck = checks.filter(ele => {
+        let answer = ele.questionAnswer.split(';')
+        let resultArr = intersection(answer, ele.answer)
+        return resultArr.length === 0
+      })
+      this.correstAnswer = correstAnswer.concat(corresCheck)
+      this.errorAnswer = errorAnswer.concat(errorCheck)
       this.allAnswer = questionList
     },
     reconnect () {

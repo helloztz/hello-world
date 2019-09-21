@@ -30,8 +30,10 @@ export default {
   methods: {
     getExamineList () {
       let params = {
-        appId: settings.global.appId,
-        uId: getUserInfor().autoId,
+        // appId: settings.global.appId,
+        // uId: getUserInfor().autoId,
+        appId: 'wx129eaf6876332fba',
+        uId: '633',
       }
       getExamineList(params)
         .then(res => {
