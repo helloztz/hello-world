@@ -131,10 +131,8 @@ export default {
     initQueParams () {
       let params = {
         examinationId: this.examinationId,
-        // appId: settings.global.appId,
-        // uId: getUserInfor().autoId,
-        appId: 'wx129eaf6876332fba',
-        uId: '633',
+        appId: settings.global.appId,
+        uId: getUserInfor().autoId,
         questionId: this.questionId,
         questionOrder: this.page,
         isLsat: this.isLsat,

@@ -149,10 +149,8 @@ export default {
     },
     initParams () {
       let params = {
-        // appId: settings.global.appId,
-        // uId: getUserInfor().autoId,
-        appId: 'wx129eaf6876332fba',
-        uId: '633',
+        appId: settings.global.appId,
+        uId: getUserInfor().autoId,
         examinationId: this.examinationId
       }
       return params
