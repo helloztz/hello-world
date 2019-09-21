@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navbar></navbar>
     <div class="videocontent">
       <div class="Video">
         <div>
