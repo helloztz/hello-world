@@ -32,6 +32,7 @@
 import Navbar from "@/navbar/Navbar";
 import { setLocalStorage } from "@/utils/index.js";
 import { getPracticeDetail } from "@/api/practice/index.js";
+import {intersection} from '@/utils/index'
 export default {
   name: "ShowResult",
   components: {
@@ -56,11 +57,23 @@ export default {
       var data = response.data.data;
       that.dataList = data;
       that.dataList.forEach(item => {
-        if (item.userAnswer && item.questionAnswer == item.userAnswer) {
-          item.state = 1;
-        }
-        if (item.userAnswer && item.questionAnswer != item.userAnswer) {
-          item.state = 2;
+        if (item.questionType == 1) {
+          if (item.userAnswer && item.questionAnswer == item.userAnswer) {
+            item.state = 1;
+          }
+          if (item.userAnswer && item.questionAnswer != item.userAnswer) {
+            item.state = 2;
+          }
+        } else if (item.questionType == 2) {
+          if (item.userAnswer) {
+            var arr1 = item.questionAnswer.split(";");
+            var arr2 = item.userAnswer.split(";");
+            if (arr1.length == intersection(arr1,arr2).length) {
+              item.state = 1;
+            }else{
+              item.state = 2;
+            }
+          }
         }
       });
     });
